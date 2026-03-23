@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:app/core/widgets/form_components.dart';
+import 'package:app/features/loans/services/loan_service.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import '../../../../core/widgets/form_components.dart';
-import '../../services/loan_service.dart';
 
 class LoanApplicationsListScreen extends StatefulWidget {
   const LoanApplicationsListScreen({super.key});
@@ -14,12 +14,44 @@ class LoanApplicationsListScreen extends StatefulWidget {
 
 class _LoanApplicationsListScreenState extends State<LoanApplicationsListScreen> {
   final _loanService = LoanService();
-  late Future<List<LoanApplication>> _applicationsFuture;
+  bool _isLoading = true;
+  String? _errorMessage;
+  List<LoanApplication> _applications = const [];
 
   @override
   void initState() {
     super.initState();
-    _applicationsFuture = _loanService.getLoanApplications();
+    _loadApplications();
+  }
+
+  Future<void> _loadApplications() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final apps = await _loanService.getLoanApplications();
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _applications = apps;
+      });
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _errorMessage = LoanService.extractError(error);
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -31,100 +63,126 @@ class _LoanApplicationsListScreenState extends State<LoanApplicationsListScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.loanApplications),
+        actions: [
+          IconButton(
+            onPressed: _isLoading ? null : _loadApplications,
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
-      body: FutureBuilder<List<LoanApplication>>(
-        future: _applicationsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final apps = snapshot.data ?? [];
-          if (apps.isEmpty) {
-            return const Center(child: Text('No hay solicitudes pendientes.'));
-          }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: apps.length,
-            itemBuilder: (context, index) {
-              final app = apps[index];
-              return CardWrapper(
-                onTap: () {
-                  // TODO: Go to application review
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          app.customerName,
-                          style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        _StatusChip(status: app.status),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      currencyFormat.format(app.amount),
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        color: theme.colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        const Icon(Icons.calendar_month_outlined, size: 16),
-                        const SizedBox(width: 8),
-                        Text('${app.installments} ${l10n.installments} - ${app.frequency}'),
-                      ],
-                    ),
-                    const Divider(height: 32),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        OutlinedButton(
-                          onPressed: () {},
-                          style: OutlinedButton.styleFrom(
-                            minimumSize: const Size(100, 36),
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                          ),
-                          child: const Text('Revisar'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+      body: RefreshIndicator(
+        onRefresh: _loadApplications,
+        child: _buildBody(theme, l10n, currencyFormat),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => context.push('/loan-applications/new'),
+        onPressed: () async {
+          await context.push('/loan-applications/new');
+          if (mounted) {
+            await _loadApplications();
+          }
+        },
         label: Text(l10n.newLoanApplication),
         icon: const Icon(Icons.add),
       ),
     );
   }
+
+  Widget _buildBody(ThemeData theme, AppLocalizations l10n, NumberFormat currencyFormat) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_errorMessage != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(_errorMessage!, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _loadApplications,
+                child: const Text('Reintentar'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (_applications.isEmpty) {
+      return const Center(child: Text('No hay solicitudes pendientes.'));
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: _applications.length,
+      itemBuilder: (context, index) {
+        final app = _applications[index];
+        return CardWrapper(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      app.customerName,
+                      style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  _StatusChip(status: app.status),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Text(
+                currencyFormat.format(app.amount),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text('${app.installments} ${l10n.installments} - ${app.frequency}'),
+              const SizedBox(height: 4),
+              Text('Interés: ${app.interestRate.toStringAsFixed(2)}%'),
+              if ((app.purpose ?? '').isNotEmpty) ...[
+                const SizedBox(height: 4),
+                Text(app.purpose!),
+              ],
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
 
 class _StatusChip extends StatelessWidget {
-  final String status;
   const _StatusChip({required this.status});
+
+  final String status;
 
   @override
   Widget build(BuildContext context) {
     Color color;
     switch (status) {
-      case 'pending': color = Colors.orange; break;
-      case 'approved': color = Colors.green; break;
-      case 'rejected': color = Colors.red; break;
-      default: color = Colors.grey;
+      case 'submitted':
+      case 'under_review':
+        color = Colors.orange;
+        break;
+      case 'approved':
+        color = Colors.green;
+        break;
+      case 'rejected':
+        color = Colors.red;
+        break;
+      default:
+        color = Colors.grey;
     }
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(

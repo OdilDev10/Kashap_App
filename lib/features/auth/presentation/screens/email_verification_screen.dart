@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/api_client.dart';
+import 'package:app/core/api_client.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final String email;

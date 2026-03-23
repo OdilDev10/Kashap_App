@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/api_client.dart';
-import '../providers/auth_provider.dart';
+import 'package:app/core/api_client.dart';
+import 'package:app/features/auth/presentation/providers/auth_provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

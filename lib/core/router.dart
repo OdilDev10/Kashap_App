@@ -2,26 +2,37 @@ import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../features/auth/presentation/providers/auth_provider.dart';
-import '../features/auth/presentation/providers/onboarding_provider.dart';
-import '../features/auth/presentation/screens/change_password_screen.dart';
-import '../features/auth/presentation/screens/email_verification_screen.dart';
-import '../features/auth/presentation/screens/forgot_password_screen.dart';
-import '../features/auth/presentation/screens/login_screen.dart';
-import '../features/auth/presentation/screens/onboarding/onboarding_screen.dart';
-import '../features/auth/presentation/screens/register_screen.dart';
-import '../features/auth/presentation/screens/reset_password_screen.dart';
-import '../features/auth/presentation/screens/reset_password_success.dart';
-import '../features/auth/presentation/screens/user_type_selection_screen.dart';
-import '../features/auth/presentation/screens/splash_screen.dart';
-import '../features/lenders/presentation/screens/lenders_manager_screen.dart';
-import '../features/lenders/presentation/screens/bank_accounts_manager_screen.dart';
-import '../features/customers/presentation/screens/customers_list_screen.dart';
-import '../features/customers/presentation/screens/customer_detail_screen.dart';
-import '../features/customers/presentation/screens/customer_registration_screen.dart';
-import '../features/loans/presentation/screens/loan_applications_list_screen.dart';
-import '../features/loans/presentation/screens/loan_application_form_screen.dart';
-import '../main.dart';
+import 'package:app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:app/features/auth/presentation/providers/onboarding_provider.dart';
+import 'package:app/features/auth/presentation/screens/change_password_screen.dart';
+import 'package:app/features/auth/presentation/screens/email_verification_screen.dart';
+import 'package:app/features/auth/presentation/screens/forgot_password_screen.dart';
+import 'package:app/features/auth/presentation/screens/login_screen.dart';
+import 'package:app/features/auth/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:app/features/auth/presentation/screens/register_screen.dart';
+import 'package:app/features/auth/presentation/screens/reset_password_screen.dart';
+import 'package:app/features/auth/presentation/screens/reset_password_success.dart';
+import 'package:app/features/auth/presentation/screens/user_type_selection_screen.dart';
+import 'package:app/features/auth/presentation/screens/splash_screen.dart';
+import 'package:app/features/lenders/presentation/screens/lenders_manager_screen.dart';
+import 'package:app/features/lenders/presentation/screens/bank_accounts_manager_screen.dart';
+import 'package:app/features/customers/presentation/screens/customers_list_screen.dart';
+import 'package:app/features/customers/presentation/screens/customer_detail_screen.dart';
+import 'package:app/features/customers/presentation/screens/customer_registration_screen.dart';
+import 'package:app/features/customers/presentation/portal/customer_portal_screen.dart';
+import 'package:app/features/customers/presentation/portal/my_loans_screen.dart';
+import 'package:app/features/customers/presentation/portal/my_payments_screen.dart';
+import 'package:app/features/loans/presentation/screens/loan_applications_list_screen.dart';
+import 'package:app/features/loans/presentation/screens/loan_application_form_screen.dart';
+import 'package:app/features/loans/presentation/screens/loans_list_screen.dart';
+import 'package:app/features/loans/presentation/screens/loan_detail_screen.dart';
+import 'package:app/features/payments/presentation/screens/payments_list_screen.dart';
+import 'package:app/features/vouchers/presentation/screens/voucher_upload_screen.dart';
+import 'package:app/features/vouchers/presentation/screens/voucher_review_screen.dart';
+import 'package:app/features/notifications/presentation/screens/notifications_screen.dart';
+import 'package:app/features/users/presentation/screens/users_manager_screen.dart';
+import 'package:app/features/reports/presentation/screens/reports_dashboard_screen.dart';
+import 'package:app/main.dart';
 
 class AppRouter extends ChangeNotifier {
   static GoRouter router(AuthProvider authProvider) {
@@ -80,6 +91,30 @@ class AppRouter extends ChangeNotifier {
           builder: (context, state) => const MainScreen(),
         ),
         GoRoute(
+          path: '/portal',
+          builder: (context, state) => const CustomerPortalScreen(),
+        ),
+        GoRoute(
+          path: '/my-loans',
+          builder: (context, state) => const MyLoansScreen(),
+        ),
+        GoRoute(
+          path: '/my-payments',
+          builder: (context, state) => const MyPaymentsScreen(),
+        ),
+        GoRoute(
+          path: '/notifications',
+          builder: (context, state) => const NotificationsScreen(),
+        ),
+        GoRoute(
+          path: '/users',
+          builder: (context, state) => const UsersManagerScreen(),
+        ),
+        GoRoute(
+          path: '/reports',
+          builder: (context, state) => const ReportsDashboardScreen(),
+        ),
+        GoRoute(
           path: '/lenders',
           builder: (context, state) => const LendersManagerScreen(),
         ),
@@ -114,6 +149,35 @@ class AppRouter extends ChangeNotifier {
           builder: (context, state) {
             final customerId = state.uri.queryParameters['customerId'];
             return LoanApplicationFormScreen(customerId: customerId);
+          },
+        ),
+        GoRoute(
+          path: '/loans',
+          builder: (context, state) => const LoansListScreen(),
+        ),
+        GoRoute(
+          path: '/loans/:id',
+          builder: (context, state) {
+            final id = state.pathParameters['id'] ?? '';
+            return LoanDetailScreen(loanId: id);
+          },
+        ),
+        GoRoute(
+          path: '/payments',
+          builder: (context, state) => const PaymentsListScreen(),
+        ),
+        GoRoute(
+          path: '/vouchers/upload',
+          builder: (context, state) {
+            final installmentId = state.uri.queryParameters['installmentId'] ?? '';
+            return VoucherUploadScreen(installmentId: installmentId);
+          },
+        ),
+        GoRoute(
+          path: '/vouchers/review/:paymentId',
+          builder: (context, state) {
+            final id = state.pathParameters['paymentId'] ?? '';
+            return VoucherReviewScreen(paymentId: id);
           },
         ),
       ],
@@ -156,10 +220,21 @@ class AppRouter extends ChangeNotifier {
         }
 
         if (auth.status == AuthStatus.authenticated) {
-          if (state.matchedLocation.startsWith('/lenders') || 
+          final isAllowedPath = state.matchedLocation.startsWith('/lenders') || 
               state.matchedLocation.startsWith('/customers') || 
               state.matchedLocation.startsWith('/loan-applications') ||
-              isChangePassword) {
+              state.matchedLocation.startsWith('/loans') ||
+              state.matchedLocation.startsWith('/payments') ||
+              state.matchedLocation.startsWith('/vouchers') ||
+              state.matchedLocation == '/notifications' ||
+              state.matchedLocation == '/users' ||
+              state.matchedLocation == '/reports' ||
+              state.matchedLocation == '/portal' ||
+              state.matchedLocation == '/my-loans' ||
+              state.matchedLocation == '/my-payments' ||
+              isChangePassword;
+
+          if (isAllowedPath) {
             return null;
           }
 

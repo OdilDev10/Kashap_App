@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/settings_provider.dart';
+import 'package:app/core/settings_provider.dart';
 
 class LanguageToggle extends StatelessWidget {
   const LanguageToggle({super.key});

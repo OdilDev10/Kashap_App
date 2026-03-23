@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../../providers/onboarding_provider.dart';
+import 'package:app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:app/features/auth/presentation/providers/onboarding_provider.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -29,7 +30,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _completeOnboarding() {
     context.read<OnboardingProvider>().completeOnboarding();
-    context.go('/login');
+    final auth = context.read<AuthProvider>();
+    context.go(auth.status == AuthStatus.authenticated ? '/dashboard' : '/login');
   }
 
   @override

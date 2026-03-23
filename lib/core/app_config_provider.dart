@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'api_client.dart';
+import 'package:app/core/api_client.dart';
 
 class AppConfigProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isLoaded = false;
   String? _error;
-  String _appName = 'Cuota';
+  String _appName = 'Kashap';
   String _version = '0.0.0';
   String _environment = 'development';
   Map<String, bool> _features = const {};

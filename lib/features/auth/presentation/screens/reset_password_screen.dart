@@ -3,7 +3,7 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/api_client.dart';
+import 'package:app/core/api_client.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String token;

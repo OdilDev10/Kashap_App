@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/app_config_provider.dart';
-import '../providers/auth_provider.dart';
+import 'package:app/core/app_config_provider.dart';
+import 'package:app/features/auth/presentation/providers/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,11 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
     await appConfig.load();
     await auth.checkAuth();
-    await Future.delayed(const Duration(milliseconds: 600));
-
-    if (mounted) {
-      context.go(auth.status == AuthStatus.authenticated ? '/dashboard' : '/login');
-    }
   }
 
   @override
@@ -101,12 +95,13 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  appConfig.appName,
+                  'Kashap',
                   style: theme.textTheme.displayMedium?.copyWith(
                     color: Colors.white,
                     letterSpacing: 1.2,
                   ),
                 ),
+
                 const SizedBox(height: 8),
                 Text(
                   appConfig.error ?? 'Finanzas Inteligentes',

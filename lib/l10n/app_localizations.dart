@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'Cuota'**
+  /// **'Kashap'**
   String get appTitle;
 
   /// No description provided for @login.
@@ -125,7 +125,7 @@ abstract class AppLocalizations {
   /// No description provided for @welcome.
   ///
   /// In en, this message translates to:
-  /// **'Welcome back'**
+  /// **'Welcome back to Kashap'**
   String get welcome;
 
   /// No description provided for @resetPasswordTitle.
@@ -203,7 +203,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingWelcome.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Cuota'**
+  /// **'Welcome to Kashap'**
   String get onboardingWelcome;
 
   /// No description provided for @onboardingWelcomeDesc.
@@ -269,13 +269,13 @@ abstract class AppLocalizations {
   /// No description provided for @selectUserTypeTitle.
   ///
   /// In en, this message translates to:
-  /// **'How will you use Cuota?'**
+  /// **'How will you use Kashap?'**
   String get selectUserTypeTitle;
 
   /// No description provided for @selectUserTypeDesc.
   ///
   /// In en, this message translates to:
-  /// **'Cuota adapts to you. Choose your profile for a personalized experience.'**
+  /// **'Kashap adapts to you. Choose your profile for a personalized experience.'**
   String get selectUserTypeDesc;
 
   /// No description provided for @userTypeCustomer.
@@ -335,7 +335,7 @@ abstract class AppLocalizations {
   /// No description provided for @registerSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Join the platform'**
+  /// **'Join Kashap'**
   String get registerSubtitle;
 
   /// No description provided for @fullName.
@@ -613,6 +613,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Apply'**
   String get apply;
+
+  /// No description provided for @loansTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Loans'**
+  String get loansTitle;
+
+  /// No description provided for @loanDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan Detail'**
+  String get loanDetail;
+
+  /// No description provided for @installmentsSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Installments Schedule'**
+  String get installmentsSchedule;
+
+  /// No description provided for @nextPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Payment'**
+  String get nextPayment;
+
+  /// No description provided for @balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Balance'**
+  String get balance;
+
+  /// No description provided for @totalPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Paid'**
+  String get totalPaid;
+
+  /// No description provided for @paymentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get paymentsTitle;
+
+  /// No description provided for @registerPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Payment'**
+  String get registerPayment;
+
+  /// No description provided for @uploadVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Voucher'**
+  String get uploadVoucher;
+
+  /// No description provided for @selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select File'**
+  String get selectFile;
+
+  /// No description provided for @processingVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing voucher...'**
+  String get processingVoucher;
+
+  /// No description provided for @voucherUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher uploaded successfully'**
+  String get voucherUploaded;
+
+  /// No description provided for @ocrResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Results'**
+  String get ocrResults;
+
+  /// No description provided for @detectedAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected Amount'**
+  String get detectedAmount;
+
+  /// No description provided for @detectedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected Date'**
+  String get detectedDate;
+
+  /// No description provided for @detectedBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Detected Bank'**
+  String get detectedBank;
+
+  /// No description provided for @confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get confidence;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no notifications'**
+  String get noNotifications;
+
+  /// No description provided for @markAllAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get markAllAsRead;
+
+  /// No description provided for @exitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exit'**
+  String get exitTitle;
+
+  /// No description provided for @exitMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to exit?'**
+  String get exitMessage;
+
+  /// No description provided for @usersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Team'**
+  String get usersTitle;
+
+  /// No description provided for @addUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Member'**
+  String get addUser;
+
+  /// No description provided for @role.
+  ///
+  /// In en, this message translates to:
+  /// **'Role'**
+  String get role;
+
+  /// No description provided for @admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get admin;
+
+  /// No description provided for @manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager'**
+  String get manager;
+
+  /// No description provided for @officer.
+  ///
+  /// In en, this message translates to:
+  /// **'Loan Officer'**
+  String get officer;
+
+  /// No description provided for @voucherReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher Review'**
+  String get voucherReview;
+
+  /// No description provided for @approvePayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve Payment'**
+  String get approvePayment;
+
+  /// No description provided for @rejectPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Payment'**
+  String get rejectPayment;
+
+  /// No description provided for @ocrMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'OCR Match'**
+  String get ocrMatch;
+
+  /// No description provided for @manualCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Correction'**
+  String get manualCorrection;
+
+  /// No description provided for @reportsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reportsTitle;
+
+  /// No description provided for @portfolioSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Portfolio Summary'**
+  String get portfolioSummary;
+
+  /// No description provided for @totalPortfolio.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Portfolio'**
+  String get totalPortfolio;
+
+  /// No description provided for @activeLoans.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Loans'**
+  String get activeLoans;
+
+  /// No description provided for @delinquencyRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Delinquency Rate'**
+  String get delinquencyRate;
+
+  /// No description provided for @collectedThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected this Month'**
+  String get collectedThisMonth;
+
+  /// No description provided for @customerPortal.
+  ///
+  /// In en, this message translates to:
+  /// **'My Portal'**
+  String get customerPortal;
+
+  /// No description provided for @myLoans.
+  ///
+  /// In en, this message translates to:
+  /// **'My Loans'**
+  String get myLoans;
+
+  /// No description provided for @myInstallments.
+  ///
+  /// In en, this message translates to:
+  /// **'My Installments'**
+  String get myInstallments;
+
+  /// No description provided for @myPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'My Payment History'**
+  String get myPayments;
+
+  /// No description provided for @nextInstallment.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Installment'**
+  String get nextInstallment;
+
+  /// No description provided for @totalDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Debt'**
+  String get totalDebt;
+
+  /// No description provided for @payNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now'**
+  String get payNow;
+
+  /// No description provided for @noActiveLoans.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no active loans currently'**
+  String get noActiveLoans;
+
+  /// No description provided for @paymentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get paymentHistory;
+
+  /// No description provided for @installmentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Installment Detail'**
+  String get installmentDetail;
+
+  /// No description provided for @daysOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Days overdue'**
+  String get daysOverdue;
 }
 
 class _AppLocalizationsDelegate

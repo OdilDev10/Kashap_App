@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../providers/user_type_provider.dart';
+import 'package:app/features/auth/presentation/providers/user_type_provider.dart';
 
 class UserTypeSelectionScreen extends StatelessWidget {
   const UserTypeSelectionScreen({super.key});

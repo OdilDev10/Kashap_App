@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/api_client.dart';
+import 'package:app/core/api_client.dart';
 
 enum AuthStatus { initial, unauthenticated, authenticated, loading }
 

@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Cuota';
+  String get appTitle => 'Kashap';
 
   @override
   String get login => 'Login';
@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get password => 'Password';
 
   @override
-  String get welcome => 'Welcome back';
+  String get welcome => 'Welcome back to Kashap';
 
   @override
   String get resetPasswordTitle => 'Reset Password';
@@ -61,7 +61,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePasswordSuccess => 'Password changed successfully';
 
   @override
-  String get onboardingWelcome => 'Welcome to Cuota';
+  String get onboardingWelcome => 'Welcome to Kashap';
 
   @override
   String get onboardingWelcomeDesc =>
@@ -98,11 +98,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skip => 'Skip';
 
   @override
-  String get selectUserTypeTitle => 'How will you use Cuota?';
+  String get selectUserTypeTitle => 'How will you use Kashap?';
 
   @override
   String get selectUserTypeDesc =>
-      'Cuota adapts to you. Choose your profile for a personalized experience.';
+      'Kashap adapts to you. Choose your profile for a personalized experience.';
 
   @override
   String get userTypeCustomer => 'I\'m a Customer';
@@ -134,7 +134,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerTitle => 'Create Account';
 
   @override
-  String get registerSubtitle => 'Join the platform';
+  String get registerSubtitle => 'Join Kashap';
 
   @override
   String get fullName => 'Full Name';
@@ -273,4 +273,154 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get apply => 'Apply';
+
+  @override
+  String get loansTitle => 'My Loans';
+
+  @override
+  String get loanDetail => 'Loan Detail';
+
+  @override
+  String get installmentsSchedule => 'Installments Schedule';
+
+  @override
+  String get nextPayment => 'Next Payment';
+
+  @override
+  String get balance => 'Outstanding Balance';
+
+  @override
+  String get totalPaid => 'Total Paid';
+
+  @override
+  String get paymentsTitle => 'Payments';
+
+  @override
+  String get registerPayment => 'Register Payment';
+
+  @override
+  String get uploadVoucher => 'Upload Voucher';
+
+  @override
+  String get selectFile => 'Select File';
+
+  @override
+  String get processingVoucher => 'Processing voucher...';
+
+  @override
+  String get voucherUploaded => 'Voucher uploaded successfully';
+
+  @override
+  String get ocrResults => 'Scan Results';
+
+  @override
+  String get detectedAmount => 'Detected Amount';
+
+  @override
+  String get detectedDate => 'Detected Date';
+
+  @override
+  String get detectedBank => 'Detected Bank';
+
+  @override
+  String get confidence => 'Confidence';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get noNotifications => 'You have no notifications';
+
+  @override
+  String get markAllAsRead => 'Mark all as read';
+
+  @override
+  String get exitTitle => 'Exit';
+
+  @override
+  String get exitMessage => 'Are you sure you want to exit?';
+
+  @override
+  String get usersTitle => 'Team';
+
+  @override
+  String get addUser => 'Add Member';
+
+  @override
+  String get role => 'Role';
+
+  @override
+  String get admin => 'Administrator';
+
+  @override
+  String get manager => 'Manager';
+
+  @override
+  String get officer => 'Loan Officer';
+
+  @override
+  String get voucherReview => 'Voucher Review';
+
+  @override
+  String get approvePayment => 'Approve Payment';
+
+  @override
+  String get rejectPayment => 'Reject Payment';
+
+  @override
+  String get ocrMatch => 'OCR Match';
+
+  @override
+  String get manualCorrection => 'Manual Correction';
+
+  @override
+  String get reportsTitle => 'Reports';
+
+  @override
+  String get portfolioSummary => 'Portfolio Summary';
+
+  @override
+  String get totalPortfolio => 'Total Portfolio';
+
+  @override
+  String get activeLoans => 'Active Loans';
+
+  @override
+  String get delinquencyRate => 'Delinquency Rate';
+
+  @override
+  String get collectedThisMonth => 'Collected this Month';
+
+  @override
+  String get customerPortal => 'My Portal';
+
+  @override
+  String get myLoans => 'My Loans';
+
+  @override
+  String get myInstallments => 'My Installments';
+
+  @override
+  String get myPayments => 'My Payment History';
+
+  @override
+  String get nextInstallment => 'Next Installment';
+
+  @override
+  String get totalDebt => 'Total Debt';
+
+  @override
+  String get payNow => 'Pay Now';
+
+  @override
+  String get noActiveLoans => 'You have no active loans currently';
+
+  @override
+  String get paymentHistory => 'Payment History';
+
+  @override
+  String get installmentDetail => 'Installment Detail';
+
+  @override
+  String get daysOverdue => 'Days overdue';
 }

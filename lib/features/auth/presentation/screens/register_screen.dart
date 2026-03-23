@@ -3,9 +3,9 @@ import 'package:app/l10n/app_localizations.dart';
 import 'package:dio/dio.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../providers/user_type_provider.dart';
-import '../../../../widgets/exit_confirmation.dart';
-import '../../../../core/api_client.dart';
+import 'package:app/features/auth/presentation/providers/user_type_provider.dart';
+import 'package:app/widgets/exit_confirmation.dart';
+import 'package:app/core/api_client.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -35,6 +35,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _acceptTerms = false;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userType = context.read<UserTypeProvider>();
+      if (!userType.hasSelection && mounted) {
+        context.go('/user-type');
+      }
+    });
+  }
 
   @override
   void dispose() {

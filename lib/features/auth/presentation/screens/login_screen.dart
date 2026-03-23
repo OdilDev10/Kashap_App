@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import '../providers/auth_provider.dart';
-import '../../../../widgets/language_toggle.dart';
-import '../../../../widgets/theme_toggle.dart';
+import 'package:app/features/auth/presentation/providers/auth_provider.dart';
+import 'package:app/core/widgets/ui_components.dart';
+import 'package:app/widgets/language_toggle.dart';
+import 'package:app/widgets/theme_toggle.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
   bool _rememberMe = false;
+  String? _lastShownError;
 
   @override
   void dispose() {
@@ -32,6 +34,19 @@ class _LoginScreenState extends State<LoginScreen> {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final auth = context.watch<AuthProvider>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final error = auth.errorMessage;
+      if (!mounted || error == null || error == _lastShownError) {
+        return;
+      }
+      _lastShownError = error;
+      CustomDialog.show(
+        context: context,
+        title: 'Inicio de sesión fallido',
+        content: error,
+      );
+    });
 
     return Scaffold(
       body: SafeArea(
@@ -118,14 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: auth.status == AuthStatus.loading
                       ? null
-                      : () {
-                          if (_formKey.currentState!.validate()) {
-                            auth.login(
-                              _emailController.text,
-                              _passwordController.text,
-                            );
-                          }
-                        },
+                      : _submitLogin,
                   child: auth.status == AuthStatus.loading
                       ? const SizedBox(
                           height: 20,
@@ -163,5 +171,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _submitLogin() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    _lastShownError = null;
+    await context.read<AuthProvider>().login(
+          _emailController.text,
+          _passwordController.text,
+        );
   }
 }
